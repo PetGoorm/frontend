@@ -33,35 +33,27 @@ function Header({ isLoggedIn }) {
     handlePetUrl()
   }, [petImg])
 
-  //헤더 아바타에 들어갈 펫 이미지 
-  const handlePetUrl = () => {
-    if (Cookies.get("key")) {
-      api.get("pet/petinfo")
-        .then((res) => {
-          console.log(res.data)
-          if (res.data.statusCode === 500) {
-            //이 error는 서버에러
-            console.log(res.data.message)
+    //헤더 아바타에 들어갈 펫 이미지 
+    const handlePetUrl = () => {
+      if (Cookies.get("key")) {
+        api.get("pet/petinfo")
+          .then((res) => {
+            console.log("res.data " + res.data.data.petUrl)
+            setPetImg(res.data.data.petUrl);
+          }).catch((error) => {
             api.post("member/reissue")
               .then((res) => {
                 console.log("accesstoken" + res.data.data);
                 Cookies.set("key", res.data.data);
-                alert('토큰 재발급 성공');
+                console.log('토큰 재발급 성공');
               })
               .catch((err) => {
-                alert('토큰 재발급 실패');
                 console.log(err.message)
               })
-          } else {
-            console.log("res.data " + res.data.data.petUrl)
-            setPetImg(res.data.data.petUrl);
-          }
-        }).catch((error) => {
-          //펫 존재하지않을떄 error
-          console.log(error.message)
-        })
+            console.log(error.message)
+          })
+      }
     }
-  }
 
   const settings = isLoggedIn
     ? [
