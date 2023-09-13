@@ -1,9 +1,10 @@
 import BoardList from "components/board/BoardList";
-
-export default function BoardListPage() {
+import { useParams } from "react-router-dom";
+export default function BoardListPage():JSX.Element {
+    
     return (
         <>
-            <BoardList/>
+            <BoardList />
         </>
     )
 }
