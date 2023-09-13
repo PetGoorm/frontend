@@ -16,6 +16,16 @@ import BoardListPage from './components/board/BoardList';
 import BoardCreateForm from 'pages/BoardCreatePage'
 import BoardModifyForm from 'pages/BoardModifyPage'
 import BoardDetail from 'pages/BoardDetailPage'
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+// routes
+import Router from './routes';
+// theme
+import ThemeProvider from './theme';
+// components
+import { StyledChart } from './components/chart';
+import ScrollToTop from './components/scroll-to-top';
+
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,21 +41,13 @@ function App() {
   return (
 
     <div>
-      <Header isLoggedIn={isLoggedIn}/>
-      <Routes>
-        <Route path="/" element={<Main/>} />
-        <Route path="/todo" element={<Diary/>}/>
-        <Route path='/member/signup' element={<SignUpPage/>}/>
-        <Route path='/member/login' element={<LoginPage/>}/>
-        <Route path='/member/logout' element={<Logout/>}/>
-        <Route path='/pet/petform' element={<PetFormPage/>}/>
-        <Route path='/pet/edit' element={<PetEditPage/>}/>
-        <Route path='/member/mypage' element={<MyPage/>}/>
-        <Route path='/board/' element={<BoardListPage/>}/>
-        <Route path='/board/:boardId' element={<BoardDetail />} />
-        <Route path='/board/create' element={<BoardCreateForm />} />
-        <Route path='/board/modify/:boardId' element={<BoardModifyForm />} />
-      </Routes>
+      <HelmetProvider>
+        <ThemeProvider>
+          <ScrollToTop />
+          <StyledChart />
+          <Router />
+        </ThemeProvider>
+      </HelmetProvider>
     </div>
     
   );
