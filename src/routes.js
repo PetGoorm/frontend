@@ -17,6 +17,7 @@ import Page404 from './pages/Page404';
 import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import PetFormPage from './pages/PetFormPage';
+import MainPage from './pages/Main';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +32,15 @@ export default function Router() {
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'blog', element: <BlogPage /> },
+      ],
+    },
+    {
+      path: '/',
+      element: <DashboardLayout />,
+      children: [
+        { element: <Navigate to="/main" />, index: true },
+        { path: 'main', element: <MainPage /> },
+        { path: 'todo', element: <TodoPage /> },
       ],
     },
     {
@@ -50,20 +60,13 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <PetFormPage />, index: true },
-        { path: 'petform', element: <PetFormPage /> },
       ],
     },
     {
+      path: '/board',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/todo" />, index: true },
-        { path: 'todo', element: <TodoPage /> },
-      ],
-    },
-    {
-      element: <DashboardLayout />,
-      children: [
-        { element: <Navigate to="/board/" />, index: true },
+        { element:<BoardPage />, index: true },
         { path: ':boardId', element: <BoardDetail  /> },
         { path: 'create', element: <BoardCreateForm /> },
         { path: 'modify/:boardId', element: <BoardModifyForm />},
