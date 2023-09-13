@@ -21,12 +21,12 @@ function ModifyBoard(): JSX.Element {
     try {
       const response = await api.get(`http://localhost:7777/api/board/${boardId}`);
       setBoardData(response.data.data);
-      
     } catch (error) {
       console.error('게시물을 가져오는 중 오류 발생:', error);
     }
   };
   console.log(boardData)
+
   useEffect(() => {
     fetchBoard();
   }, [boardId]);
@@ -67,6 +67,7 @@ function ModifyBoard(): JSX.Element {
 
   const handleGoback = (event) => {
     navigate(-2) //개선 해야함
+
   }
 
   return (
