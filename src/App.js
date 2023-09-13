@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Main from "./pages/Main";
 import Diary from "./pages/Todo";
 import SignUpPage from 'pages/SignUpPage';
-import Header from 'frame/Header';
 import LoginPage from 'pages/LoginPage';
 import Cookies from 'js-cookie';
 import {useState, useEffect} from 'react';
