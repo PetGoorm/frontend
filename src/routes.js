@@ -5,7 +5,7 @@ import SimpleLayout from './layouts/simple';
 //
 import LoginPage from './pages/LoginPage';
 import TodoPage from './pages/Todo';
-import BoardPage from './pages/BoardListPage';
+import BoardListPage from './pages/BoardListPage';
 //import BoardFormPage from 'pages/BoardFormPage';
 import BoardCreateForm from './pages/BoardCreatePage'
 import BoardModifyForm from './pages/BoardModifyPage'
@@ -66,10 +66,11 @@ export default function Router() {
       path: '/board',
       element: <DashboardLayout />,
       children: [
-        { element:<BoardPage />, index: true },
+        { element: <Navigate to="/board/list/all" />, index: true },
         { path: ':boardId', element: <BoardDetail  /> },
         { path: 'create', element: <BoardCreateForm /> },
         { path: 'modify/:boardId', element: <BoardModifyForm />},
+        { path: 'list/:category', element: <BoardListPage /> },
       ],
     },
     {

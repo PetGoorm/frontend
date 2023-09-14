@@ -11,7 +11,6 @@ import PetFormPage from 'pages/PetFormPage';
 import PetEditPage from 'pages/PetEditPage';
 import MyPage from 'pages/MyPage';
 import BoardListPage from './components/board/BoardList';
-//import BoardFormPage from 'pages/BoardFormPage';
 import BoardCreateForm from 'pages/BoardCreatePage'
 import BoardModifyForm from 'pages/BoardModifyPage'
 import BoardDetail from 'pages/BoardDetailPage'
