@@ -18,6 +18,7 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import PetFormPage from './pages/PetFormPage';
 import MainPage from './pages/Main';
+import Logout from 'components/member/Logout';
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,10 @@ export default function Router() {
     {
       path: 'login',
       element: <LoginPage />,
+    },
+    {
+      path: 'logout',
+      element: <Logout />,
     },
     {
       element: <SimpleLayout />,
