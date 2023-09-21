@@ -20,14 +20,15 @@ export const generateDate = (date: dayjs.Dayjs) => {
   }
 
   const remaining = 42 - arrayofDate.length;
+  const lastDayOfMonth = lastDateOfMonth.day();
 
-  // postfix 날짜 생성
+  // postfix 날짜 생성 (토요일까지만)
   for (
-    let i = lastDateOfMonth.date() + 1;
-    i <= lastDateOfMonth.date() + remaining;
+    let i = 1;
+    i <= remaining && i <= 6 - lastDayOfMonth;
     i++
   ) {
-    arrayofDate.push({ currentMonth: false, date: lastDateOfMonth.date(i) });
+    arrayofDate.push({ currentMonth: false, date: lastDateOfMonth.add(i, "day") });
   }
 
   return arrayofDate;

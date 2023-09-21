@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, ButtonHTMLAttributes } from "react";
 import {
   CalendarContainer,
   CalendarHeader,
   DateContainer,
   DateLabel,
   DayContainer,
+  DateLabelButton,
 } from "./styles";
 import dayjs from "dayjs";
 import { generateDate } from "./generateDate";
 import Leftbutton from "./calenderLeft.png";
 import Rightbutton from "./calenderRight.png";
+import { Card } from '@mui/material';
 
 interface DateProps {
   currentMonth: boolean;
@@ -19,15 +21,7 @@ interface DateProps {
 export const Calendar = () => {
   const [date, setDate] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null); // 선택한 날짜 상태 추가
-  const dates = [
-    "일",
-    "월",
-    "화",
-    "수",
-    "목",
-    "금",
-    "토",
-  ];
+  const dates = ["일","월","화","수","목","금","토"];
   const [records, setRecords] = useState<DateProps[]>([]);
   const prevMonth = () => {
     setDate((prev) => prev.add(-1, "month"));
@@ -38,8 +32,8 @@ export const Calendar = () => {
   };
 
   const handleDateClick = (clickedDate: dayjs.Dayjs) => {
-    // 클릭한 날짜를 선택한 날짜로 설정
     setSelectedDate(clickedDate);
+    console.log("클릭된 날짜:", clickedDate.format("YYYY-MM-DD"));
   };
 
   useEffect(() => {
@@ -48,37 +42,41 @@ export const Calendar = () => {
   }, [date]);
 
   return (
-    <CalendarContainer>
-      <CalendarHeader>
-        <img src = {Leftbutton} alt = "left" onClick={prevMonth}/>
-        <div className="block xl:hidden">
-          <span>
-            {date.year()}년 {date.month() + 1}월
-          </span>
-        </div>
-        <img src = {Rightbutton} alt = "right" onClick={nextMonth}/>
-      </CalendarHeader>
-      <DateContainer>
+    <Card style={{ height: "460px" }}>
+        <CalendarContainer>
+        <CalendarHeader>
+            <span>
+                {date.year()}년 {date.month() < 9 ? `0${date.month() + 1}` : date.month() + 1}월
+            </span>
+            <img src = {Leftbutton} alt = "left" onClick={prevMonth}/>
+            <img src = {Rightbutton} alt = "right" onClick={nextMonth}/>
+        </CalendarHeader>
+        <DateContainer>
         {dates.map((date, index) => (
           <div key={index}>{date}</div>
         ))}
-      </DateContainer>
-      <DayContainer>
-        {records.map(({ date, currentMonth }) => {
-          const isToday = date.isSame(dayjs(), "day");
-          const isSelected = selectedDate?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
-          return (
-            <DateLabel
-              $currentMonth={currentMonth}
-              $isToday={isToday}
-              $isSelected={isSelected} // 선택한 날짜인지 여부 전달
-              onClick={() => handleDateClick(date)}
-            >
-              {date.date()}
-            </DateLabel>
-          );
-        })}
-      </DayContainer>
-    </CalendarContainer>
+        </DateContainer>
+        <DayContainer>
+            {records.map(({ date, currentMonth }) => {
+            const isToday = date.isSame(dayjs(), "day");
+            const isSelected = selectedDate?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
+            return (
+                <>
+                    <DateLabel
+                    $currentMonth={currentMonth}
+                    $isToday={isToday}
+                    $isSelected={isSelected}
+                    onClick={() => handleDateClick(date)}
+                    >
+                    <DateLabelButton/>
+                    {date.date()}
+                    </DateLabel>
+                </>
+
+            );
+            })}
+        </DayContainer>
+        </CalendarContainer>
+    </Card>
   );
 };
