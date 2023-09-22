@@ -1,4 +1,4 @@
-import { useEffect, useState, ButtonHTMLAttributes } from "react";
+import { useEffect, useState} from "react";
 import {
   CalendarContainer,
   CalendarHeader,
@@ -9,21 +9,22 @@ import {
 } from "./styles";
 import dayjs from "dayjs";
 import { generateDate } from "./generateDate";
+import { useRecoilState } from 'recoil';
 import Leftbutton from "./calenderLeft.png";
 import Rightbutton from "./calenderRight.png";
 import { Card } from '@mui/material';
+import selectedDateState from "stores/seletedDate";
 
 interface DateProps {
   currentMonth: boolean;
   date: dayjs.Dayjs;
 }
 
-export const Calendar = ({ onDateSelect }) => {
+export const Calendar = () => {
   const [date, setDate] = useState(dayjs());
-  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null); // 선택한 날짜 상태 추가
+  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateState); // 선택한 날짜 상태 추가
   const dates = ["일","월","화","수","목","금","토"];
   const [records, setRecords] = useState<DateProps[]>([]);
-
   const prevMonth = () => {
     setDate((prev) => prev.add(-1, "month"));
   };
@@ -33,8 +34,7 @@ export const Calendar = ({ onDateSelect }) => {
   };
 
   const handleDateClick = (clickedDate: dayjs.Dayjs) => {
-    setSelectedDate(clickedDate);
-    onDateSelect(clickedDate);
+    setSelectedDate(clickedDate.toString());
     console.log("클릭된 날짜:", clickedDate.format("YYYY-MM-DD"));
   };
 
@@ -61,7 +61,7 @@ export const Calendar = ({ onDateSelect }) => {
         <DayContainer>
             {records.map(({ date, currentMonth }) => {
             const isToday = date.isSame(dayjs(), "day");
-            const isSelected = selectedDate?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
+            const isSelected = dayjs(selectedDate)?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
             return (
                 <>
                     <DateLabel

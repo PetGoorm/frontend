@@ -22,7 +22,7 @@ TaskItem.propTypes = {
     checked: PropTypes.bool,
     onChange: PropTypes.func,
     task: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       label: PropTypes.string,
     }),
   };

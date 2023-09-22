@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import React, { useState } from 'react';
+import { RecoilRoot } from 'recoil';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -19,12 +19,6 @@ import Todofeed from 'components/todo/Todofeed';
 
 export default function DashboardAppPage() {
   const theme = useTheme();
-  const [selectedDate, setSelectedDate] = useState(null); // 선택한 날짜를 저장할 상태 추가
-
-  // Calendar 컴포넌트에서 선택한 날짜를 받아와서 상태 업데이트
-  const handleDateSelect = (date) => {
-    setSelectedDate(date);
-  };
 
   return (
     <>
@@ -38,14 +32,16 @@ export default function DashboardAppPage() {
         </Typography>
 
         <Grid container spacing={3}>
-
+        <RecoilRoot>
           <Grid item xs={12} md={6} lg={4}>
-            <Calendar onDateSelect={handleDateSelect}/>
+            <Calendar/>
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
-            <Todofeed selectedDate={selectedDate}/>
+            <Todofeed/>
           </Grid>
+        </RecoilRoot>
+          
 
           <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate

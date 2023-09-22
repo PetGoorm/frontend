@@ -9,8 +9,8 @@ function TodoInput({ onAddTodo }) {
 
   const handleAddTodo = () => {
     if (newTodo.trim() !== '') {
-      onAddTodo(newTodo);
-      setNewTodo(''); 
+      onAddTodo(newTodo); // 부모 컴포넌트로 새로운 할 일을 전달
+      setNewTodo(''); // 입력창 초기화
       console.log(newTodo);
     }
   };
