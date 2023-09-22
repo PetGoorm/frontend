@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import React, { useState } from 'react';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
@@ -7,23 +8,23 @@ import { Grid, Container, Typography } from '@mui/material';
 import Iconify from '../components/iconify';
 // sections
 import {
-  AppTasks,
   AppNewsUpdate,
   AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
 } from '../sections/@dashboard/app';
 
 import { Calendar } from "../components/calendar/Calendar";
+import Todofeed from 'components/todo/Todofeed';
 
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const theme = useTheme();
+  const [selectedDate, setSelectedDate] = useState(null); // 선택한 날짜를 저장할 상태 추가
+
+  // Calendar 컴포넌트에서 선택한 날짜를 받아와서 상태 업데이트
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+  };
 
   return (
     <>
@@ -38,46 +39,12 @@ export default function DashboardAppPage() {
 
         <Grid container spacing={3}>
 
-        <Grid item xs={12} md={6} lg={4}>
-            {/* <AppTrafficBySite
-              title="Traffic by Site"
-              list={[
-                {
-                  name: 'FaceBook',
-                  value: 323234,
-                  icon: <Iconify icon={'eva:facebook-fill'} color="#1877F2" width={32} />,
-                },
-                {
-                  name: 'Google',
-                  value: 341212,
-                  icon: <Iconify icon={'eva:google-fill'} color="#DF3E30" width={32} />,
-                },
-                {
-                  name: 'Linkedin',
-                  value: 411213,
-                  icon: <Iconify icon={'eva:linkedin-fill'} color="#006097" width={32} />,
-                },
-                {
-                  name: 'Twitter',
-                  value: 443232,
-                  icon: <Iconify icon={'eva:twitter-fill'} color="#1C9CEA" width={32} />,
-                },
-              ]}
-            /> */}
-            <Calendar/>
+          <Grid item xs={12} md={6} lg={4}>
+            <Calendar onDateSelect={handleDateSelect}/>
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>
-            <AppTasks
-              title="Tasks"
-              list={[
-                { id: '1', label: 'Create FireStone Logo' },
-                { id: '2', label: 'Add SCSS and JS files if required' },
-                { id: '3', label: 'Stakeholder Meeting' },
-                { id: '4', label: 'Scoping & Estimations' },
-                { id: '5', label: 'Sprint Showcase' },
-              ]}
-            />
+            <Todofeed selectedDate={selectedDate}/>
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>

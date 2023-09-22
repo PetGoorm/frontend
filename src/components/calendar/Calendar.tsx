@@ -18,11 +18,12 @@ interface DateProps {
   date: dayjs.Dayjs;
 }
 
-export const Calendar = () => {
+export const Calendar = ({ onDateSelect }) => {
   const [date, setDate] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs | null>(null); // 선택한 날짜 상태 추가
   const dates = ["일","월","화","수","목","금","토"];
   const [records, setRecords] = useState<DateProps[]>([]);
+
   const prevMonth = () => {
     setDate((prev) => prev.add(-1, "month"));
   };
@@ -33,6 +34,7 @@ export const Calendar = () => {
 
   const handleDateClick = (clickedDate: dayjs.Dayjs) => {
     setSelectedDate(clickedDate);
+    onDateSelect(clickedDate);
     console.log("클릭된 날짜:", clickedDate.format("YYYY-MM-DD"));
   };
 
