@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import check from "./check.svg";
 
 export const CalendarContainer = styled.div`
   padding: 10px;
@@ -50,9 +51,10 @@ export const DateLabel = styled.div<{ $currentMonth?: boolean; $isToday?: boolea
   cursor: pointer;
 `;
 
-export const DateLabelButton = styled.button`
-  background-color: #EAEAEA; /* 버튼의 배경색 */
-  color: white; /* 버튼 텍스트의 글자색 */
+export const DateLabelButton = styled.button<{ $isCompleted?: boolean }>`
+  background-color: ${(props) => (props.$isCompleted ? '#86E57F' : '#EAEAEA')};
+  background-image: ${(props) => (props.$isCompleted ? `url(${check})` : 'none')};
+  color: #A6A6A6; /* 버튼 텍스트의 글자색 */
   border: none; /* 버튼 테두리 제거 */
   border-radius: 30%; /* 원 모양의 버튼을 만듭니다. */
   width: 24px; /* 버튼의 너비 */

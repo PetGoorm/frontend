@@ -47,10 +47,12 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
   };
 
   const handleSave = () => {
+    if (editedTitle.trim() === '') {
+      return; // 텍스트가 비어있으면 추가하지 않음
+    }
     // 서버로 업데이트 요청을 보내는 코드를 여기에 추가
     api.put(`todo/${task.id}`, { title: editedTitle })
     .then((response) => {
-      console.log('Update successful', response.data);
       setIsEditing(false);
       onDelete();
     })
@@ -62,9 +64,14 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
   const handleCheckboxChange = (event) => {
     const newCheckedValue = event.target.checked; // 변경된 상태 가져오기
     onChange(newCheckedValue); 
+
+    if (task.title.trim() === '') {
+      return; // 텍스트가 비어있으면 추가하지 않음
+    }
+
     api.put(`todo/${task.id}`, { done: newCheckedValue, title:task.title  })
       .then((response) => {
-        console.log('Update successful', response.data);
+        onDelete();
       })
       .catch(error => {
         console.error('Update failed', error);

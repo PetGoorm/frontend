@@ -21,10 +21,8 @@ function TodoInput({ onAddTodo }) {
       day: selectedDate.format("YYYY-MM-DD"),
     };
 
-    console.log(newTodo);
     api.post("todo", newTodo) // 서버로 ToDo 항목 전송
       .then((response) => {
-        console.log(response.data);
         const savedTodo = {
           id: response.data.data.id,
           title: response.data.data.title,

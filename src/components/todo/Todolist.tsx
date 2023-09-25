@@ -31,6 +31,7 @@ export default function AppTasks({ title, list, ...other }) {
   const [isAddingTodo, setIsAddingTodo] = useState(false); // 할 일 입력창을 표시할지 여부 상태 추가
   const [todos, setTodos] = useState([]);
   const selectedDate = useRecoilValue(selectedDateState);
+  const [taskChecked, setTaskChecked] = useState([]);
 
   useEffect(() => {
     setTodos(list); // list가 변경될 때 todos 업데이트
@@ -49,7 +50,6 @@ export default function AppTasks({ title, list, ...other }) {
 
   const fetchTodos = (selectedDate) => {
     const formattedDate = selectedDate.format('YYYY-MM-DD');
-    console.log(formattedDate);
     api.get(`todo/${formattedDate}`)
       .then(response => {
         setTodos(response.data.data.map((item: any) => ({
@@ -57,7 +57,6 @@ export default function AppTasks({ title, list, ...other }) {
           title: item.title,
           done: item.done
         })));
-        console.log(todos);
       })
       .catch(error => {
         console.log(error);
@@ -89,7 +88,7 @@ export default function AppTasks({ title, list, ...other }) {
                 <TaskItem
                   key={task.id}
                   task={task}
-                  checked={field.value.includes(task.id)}
+                  checked={task.done}
                   onChange={() => field.onChange(onSelected(task.id))}
                   onDelete={handleDeleteTodo}
                 />

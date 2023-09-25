@@ -34,7 +34,7 @@ const Todofeed: React.FC<TodoProps> = () => {
   // ToDo 리스트 조회 함수
   const fetchTodos = (selectedDate) => {
     const formattedDate = selectedDate.format('YYYY-MM-DD');
-    console.log(formattedDate);
+
     api.get(`todo/${formattedDate}`)
       .then(response => {
         setTodos(response.data.data.map((item: any) => ({
@@ -42,7 +42,7 @@ const Todofeed: React.FC<TodoProps> = () => {
           title: item.title,
           done: item.done
         })));
-        console.log(todos);
+
       })
       .catch(error => {
         console.log(error);
