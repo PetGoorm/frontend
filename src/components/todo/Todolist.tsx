@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
 // @mui
@@ -10,6 +10,9 @@ import {
 // components
 import TaskItem from "./TodoItem";
 import TodoInput from './TodoInput';
+import api from "lib/api";
+import { useRecoilValue } from 'recoil';
+import  selectedDateState  from "../../stores/seletedDate";
 
 // ----------------------------------------------------------------------
 
@@ -26,18 +29,39 @@ export default function AppTasks({ title, list, ...other }) {
   });
 
   const [isAddingTodo, setIsAddingTodo] = useState(false); // 할 일 입력창을 표시할지 여부 상태 추가
-  const [todos, setTodos] = useState(list);
+  const [todos, setTodos] = useState([]);
+  const selectedDate = useRecoilValue(selectedDateState);
+
+  useEffect(() => {
+    setTodos(list); // list가 변경될 때 todos 업데이트
+  }, [list]);
 
   // 새로운 할 일 추가 함수
   const handleAddTodo = (newTodo) => {
-    const newTask = {
-      id: (todos.length + 1).toString(), // 임의의 ID 생성 (실제로는 고유한 ID를 사용해야 함)
-      title: newTodo,
-    };
-    setTodos([...todos, newTask]);
+    setTodos([...list, newTodo]);
+    fetchTodos(selectedDate);
     setIsAddingTodo(false); // 입력창 닫기
+  };
 
-    console.log(todos);
+  const handleDeleteTodo = () => {
+    fetchTodos(selectedDate);
+  }
+
+  const fetchTodos = (selectedDate) => {
+    const formattedDate = selectedDate.format('YYYY-MM-DD');
+    console.log(formattedDate);
+    api.get(`todo/${formattedDate}`)
+      .then(response => {
+        setTodos(response.data.data.map((item: any) => ({
+          id: item.id,
+          title: item.title,
+          done: item.done
+        })));
+        console.log(todos);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   return (
@@ -61,12 +85,13 @@ export default function AppTasks({ title, list, ...other }) {
 
           return (
             <>
-              {list.map((task) => (
+              {todos.map((task) => (
                 <TaskItem
                   key={task.id}
                   task={task}
                   checked={field.value.includes(task.id)}
                   onChange={() => field.onChange(onSelected(task.id))}
+                  onDelete={handleDeleteTodo}
                 />
               ))}
             </>

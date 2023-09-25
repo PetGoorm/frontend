@@ -34,7 +34,7 @@ export const Calendar = () => {
   };
 
   const handleDateClick = (clickedDate: dayjs.Dayjs) => {
-    setSelectedDate(clickedDate.toString());
+    setSelectedDate(clickedDate);
     console.log("클릭된 날짜:", clickedDate.format("YYYY-MM-DD"));
   };
 
@@ -61,7 +61,7 @@ export const Calendar = () => {
         <DayContainer>
             {records.map(({ date, currentMonth }) => {
             const isToday = date.isSame(dayjs(), "day");
-            const isSelected = dayjs(selectedDate)?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
+            const isSelected = selectedDate?.isSame(date, "day"); // 클릭한 날짜와 현재 날짜 비교
             return (
                 <>
                     <DateLabel
