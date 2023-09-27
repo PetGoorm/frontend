@@ -11,7 +11,6 @@ function BoardDetail(): JSX.Element {
   const { boardId } = useParams();
   const navigate = useNavigate();
 
-
   const fetchBoard = async () => {
     try {
       const response = await api.get(`http://localhost:7777/api/board/${boardId}`);
@@ -34,7 +33,7 @@ function BoardDetail(): JSX.Element {
       alert('게시글이 삭제되었습니다.');
     } else {
       alert(`${response.data.message}`);
-      navigate(-1); // 이전 페이지로 이동 (수정 폼 들어갔다가 나와서 목록으로 나가려는 사람들에 대한 예외처리 필요)
+      navigate(-1); // 이전 페이지로 이동 (수정 폼 들어갔다가 나와서 목록으로 나가려는 사람들에 대한 예외처리 필요ㄴ)
     }
   };
 
@@ -44,8 +43,7 @@ function BoardDetail(): JSX.Element {
 
   useEffect(() => {
     fetchBoard();
-  }, [board]);
-
+  }, []);
 
   return (
     <div>
@@ -61,7 +59,18 @@ function BoardDetail(): JSX.Element {
             <TableBody>
               <TableRow>
                 <TableCell>
-                  <Typography sx={{display: 'flex', justifyContent: 'center'}}>[{board.category}] {board.title}   
+                  <Typography sx={{display: 'flex', justifyContent: 'center'}}>[{(() => {
+                switch (board.category) {
+                  case 'walk-with':
+                    return '산책가요';
+                  case 'show-off':
+                    return '동물자랑';
+                  case 'sitter':
+                    return '시터공고';
+                  default:
+                    return board.category;
+                }
+              })()}] {board.title}   
                     <Typography sx={{ color: 'grey' }}> {moment(board.moddate).format('YYYY-MM-DD HH:mm')}
                     </Typography>
                   </Typography>
