@@ -10,12 +10,7 @@ function ModifyBoard(): JSX.Element {
   const navigate = useNavigate();
   const { boardId } = useParams();
 
-  const [boardData, setBoardData] = useState<boardRequestDto>({
-    title: '',
-    content: '',
-    category: '',
-    image: '',
-  });
+  const [boardData, setBoardData] = useState<boardRequestDto | null>();
 
   const fetchBoard = async () => {
     try {

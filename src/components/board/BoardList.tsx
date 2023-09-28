@@ -106,8 +106,7 @@ function BoardList(): JSX.Element {
           <MenuItem value="show-off">동물자랑</MenuItem>
           <MenuItem value="sitter">시터공고</MenuItem>
         </Select>
-        <Button variant="contained" sx={{ mt: 3, mb: 2, mx: 0.5, color: 'white' }} >
-          
+        <Button variant="contained" sx={{ color: 'white' }}>
           <Link to={`/board/create`}>글쓰기</Link>
         </Button>
       </div>
@@ -121,8 +120,8 @@ function BoardList(): JSX.Element {
           <p className="text-overlay">게시물이 없어요!</p>
         </div>
       ) : boardList.length > 0 ? (
-        <TableContainer component={Paper} >
-          <Table className="board-table" aria-label="게시판 테이블" >
+        <TableContainer component={Paper}>
+          <Table className="board-table" aria-label="게시판 테이블">
             <TableHead>
               <TableRow>
                 <TableCell>글번호</TableCell>
