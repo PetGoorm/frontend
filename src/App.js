@@ -4,7 +4,7 @@ import Main from "./pages/Main";
 import SignUpPage from 'pages/SignUpPage';
 import LoginPage from 'pages/LoginPage';
 import Cookies from 'js-cookie';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Logout from 'components/member/Logout';
 import PetFormPage from 'pages/PetFormPage';
 import PetEditPage from 'pages/PetEditPage';
@@ -22,6 +22,7 @@ import ThemeProvider from './theme';
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
+import { RecoilRoot } from 'recoil';
 
 function App() {
 
@@ -38,15 +39,17 @@ function App() {
   return (
 
     <div>
-      <HelmetProvider>
-        <ThemeProvider>
-          <ScrollToTop />
-          <StyledChart />
-          <Router />
-        </ThemeProvider>
-      </HelmetProvider>
+      <RecoilRoot>
+        <HelmetProvider>
+          <ThemeProvider>
+            <ScrollToTop />
+            <StyledChart />
+            <Router />
+          </ThemeProvider>
+        </HelmetProvider>
+      </RecoilRoot>
     </div>
-    
+
   );
 }
 
