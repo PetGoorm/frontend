@@ -16,6 +16,7 @@ import NavSection from '../../../components/nav-section';
 import navConfig from './config';
 import Cookies from 'js-cookie';
 import api from '../../../lib/api';
+import NavList from './navList';
 
 // ----------------------------------------------------------------------
 
@@ -105,8 +106,8 @@ export default function Nav({ openNav, onCloseNav }) {
         </Link>
       </Box>
 
-      <NavSection data={navConfig} />
-
+      {/* <NavSection data={navConfig} /> */}
+      <NavList/>
       <Box sx={{ flexGrow: 1 }} />
 
       <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
