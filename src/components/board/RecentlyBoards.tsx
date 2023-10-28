@@ -10,7 +10,7 @@ function RecentlyBoards(): JSX.Element {
     const [recentlyBoardList, setRecentlyBoardList] = useState<boardResponseDto[] | null>(null);
     
     const fetchBoards = () => {
-        api.get(`http://localhost:7777/api/board/recently`)
+        api.get(`/api/board/recently`)
           .then((response) => {
             // 데이터를 배열로 변환하고 설정
             console.log(response.data.data.content);
@@ -31,7 +31,7 @@ function RecentlyBoards(): JSX.Element {
             {recentlyBoardList !== null && (
                 <AppNewsUpdate
                     title="최신 글"
-                    subheader="우리 동네 새로운 소식을 확인해보세요!"
+                    subheader="전국 집사님들의 새로운 소식을 확인해보세요!"
                     list={recentlyBoardList.map((item) => ({
                         id: item.boardId,
                         title: (
