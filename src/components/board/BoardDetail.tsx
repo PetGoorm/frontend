@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import boardResponseDto from 'dto/boardResponseDto';
 import api from 'lib/api';
 import Cookies from 'js-cookie';
@@ -12,9 +12,14 @@ function BoardDetail(): JSX.Element {
   const { boardId } = useParams();
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const stateParam = queryParams.get('state');
+
+
   const fetchBoard = async () => {
     try {
-      const response = await api.get(`http://localhost:7777/api/board/${boardId}`);
+      const response = await api.get(`/api/board/${boardId}`);
       setBoard(response.data.data);
     } catch (error) {
       console.error('게시물 목록을 가져오는 중 오류 발생:', error);
@@ -32,7 +37,7 @@ function BoardDetail(): JSX.Element {
         Authorization: `Bearer ${token}`,
       };
   
-      const response = await api.delete(`http://localhost:7777/api/board/delete/${boardId}`, { headers });
+      const response = await api.delete(`/api/board/delete/${boardId}`, { headers });
       if (response.data.status === 200) {
         alert('게시글이 삭제되었습니다.');
         
@@ -44,7 +49,11 @@ function BoardDetail(): JSX.Element {
   };
 
   const goBackToList = () => {
-    navigate(-1); // 이전 페이지로 이동
+    if (stateParam) {
+      navigate(-2);
+    } else {
+      navigate(-1);
+    }
   };
 
   useEffect(() => {
