@@ -39,7 +39,7 @@ function BoardDetail(): JSX.Element {
       } else {
         alert(`${response.data.message}`);
       }
-      navigate(-2);
+      navigate(-1);
     }
   };
 
