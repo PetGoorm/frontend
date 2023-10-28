@@ -26,9 +26,9 @@ function BoardList(): JSX.Element {
   const page = new URLSearchParams(location.search).get('page');
   const fetchBoardList = async (page) => {
     try {
-      console.log(`http://localhost:7777/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`)
+      console.log(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`)
 
-      const response = await api.get(`http://localhost:7777/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`);
+      const response = await api.get(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`);
 
       const data = response.data;
 
