@@ -1,0 +1,35 @@
+
+name: CD
+
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Checkout source code
+        uses: actions/checkout@v3 # workflow에서 액세스할 수 있도록 저장소를 체크아웃
+
+      - name: Create .env file
+        run: |
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }} 
+        
+      - name: Install dependencies
+        run: yarn install
+        
+      - name: Build
+        run: yarn build
+
+      - name: Invalidate CloudFront Cache # 새로 리소스를 업데이트할 때 기존 캐시 무효화
+        uses: chetan/invalidate-cloudfront-action@master
+        continue-on-error: true
