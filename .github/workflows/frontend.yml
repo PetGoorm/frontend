@@ -26,7 +26,7 @@ jobs:
         run: yarn build
 
       - name: S3 Deploy
-        run: aws s3 sync ./build s3://${{ secrets.AWS_S3_BUCKET }}/ --acl bucket-owner-full-control
+        run: aws s3 sync ./build s3://petgoorm-frontend-s3-bucket/ --acl bucket-owner-full-control
 
       - name: Invalidate CloudFront Cache # 새로 리소스를 업데이트할 때 기존 캐시 무효화
         uses: chetan/invalidate-cloudfront-action@master
