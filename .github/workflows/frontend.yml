@@ -17,7 +17,7 @@ jobs:
         run: |
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
         env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }} 
+          SECRETS_CONTEXT: ${{ toJson(secrets.SECRETS_CONTEXT) }} 
         
       - name: Install dependencies
         run: yarn install
@@ -31,6 +31,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           AWS_REGION: ap-northeast-2
+          
       - name: Invalidate CloudFront Cache # 새로 리소스를 업데이트할 때 기존 캐시 무효화
         uses: chetan/invalidate-cloudfront-action@master
         env:
