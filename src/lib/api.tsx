@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie';
 
 const api = axios.create({
-	baseURL : 'http://43.202.220.69:7777',
+	baseURL : 'https://petgoorm.life',
     headers: {
         "Content-Type": `application/json`,
       },
