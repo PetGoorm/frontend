@@ -1,17 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { RecoilRoot } from 'recoil';
-import { faker } from '@faker-js/faker';
 // @mui
-import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
-// components
-import Iconify from '../components/iconify';
-// sections
-import {
-  AppNewsUpdate,
-  AppOrderTimeline,
-} from '../sections/@dashboard/app';
-
 import { Calendar } from "../components/calendar/Calendar";
 import Todofeed from 'components/todo/Todofeed';
 import RecentlyBoards from 'components/board/RecentlyBoards';
@@ -19,7 +8,6 @@ import RecentlyBoards from 'components/board/RecentlyBoards';
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
-  const theme = useTheme();
 
   return (
     <>

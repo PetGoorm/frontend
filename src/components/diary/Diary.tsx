@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DiaryEditPopup from "./DiaryEdit";
 
 import {
@@ -7,7 +7,6 @@ import {
   Grid,
   TextField,
   Box,
-  Link,
   Button,
   Card,
 } from '@mui/material';
@@ -62,6 +61,7 @@ export const Diary = () => {
         console.error('Failed to fetch data', error);
       });
     console.log(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDay]);
 
   const handleEditClick = () => {

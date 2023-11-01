@@ -32,6 +32,7 @@ export default function AccountPopover({ isLoggedIn }) {
 
   useEffect(() => {
     handlePetUrl()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [petImg])
 
   const settings = isLoggedIn

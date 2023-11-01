@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import api from "lib/api";
 import PetImgUpload from "./PetImgUpload";
 import { uploadS3 } from "lib/s3";
-import { Container, Typography, Grid, TextField, Box, Link, Button, Card } from '@mui/material';
+import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
 
 interface PetFormData {
     petname: string;

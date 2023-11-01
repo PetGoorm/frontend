@@ -9,12 +9,8 @@ import BoardListPage from './pages/BoardListPage';
 import BoardCreateForm from './pages/BoardCreatePage'
 import BoardModifyForm from './pages/BoardModifyPage'
 import BoardDetail from './pages/BoardDetailPage'
-import BlogPage from './pages/BlogPage';
-import UserPage from './pages/UserPage';
 //import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
-import DashboardAppPage from './pages/DashboardAppPage';
 import PetFormPage from './pages/PetFormPage';
 import MainPage from './pages/Main';
 import Logout from 'components/member/Logout';

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "lib/api";
 import useNicknameChecker from "lib/useNicknameChecker";
-import { Container, Typography, Grid, TextField, Box, Link, Button, Paper, Card } from '@mui/material';
+import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
 
 interface FormData {
   nickname: string;
@@ -29,7 +29,7 @@ const EditNick = () => {
         .then((res) => {
           console.log(data);
           console.log(res.data);
-          if (res.data.statusCode == 200) {
+          if (res.data.statusCode === 200) {
             alert(res.data.message)
             navigate("/");
           }

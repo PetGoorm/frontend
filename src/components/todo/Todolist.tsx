@@ -31,7 +31,6 @@ export default function AppTasks({ title, list, ...other }) {
   const [isAddingTodo, setIsAddingTodo] = useState(false); // 할 일 입력창을 표시할지 여부 상태 추가
   const [todos, setTodos] = useState([]);
   const selectedDate = useRecoilValue(selectedDateState);
-  const [taskChecked, setTaskChecked] = useState([]);
 
   useEffect(() => {
     setTodos(list); // list가 변경될 때 todos 업데이트
