@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import boardResponseDto from 'dto/boardResponseDto';
 import api from 'lib/api';
 import Cookies from 'js-cookie';
-import { Button, TableContainer, Table, TableBody, TableCell, TableRow, Paper, Typography, Divider, Container, Box, Stack } from '@mui/material';
-import Reply from './reply/Reply';
+import { Button, TableContainer, Table, TableBody, TableCell, TableRow, Paper, Typography, Divider} from '@mui/material';
 
 function BoardDetail(): JSX.Element {
   const [board, setBoard] = useState<boardResponseDto | null>();
@@ -58,6 +57,7 @@ function BoardDetail(): JSX.Element {
 
   useEffect(() => {
     fetchBoard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

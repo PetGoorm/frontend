@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import boardRequestDto from 'dto/boardRequestDto'
 import BoardImageUploader from 'components/board/boardImageUploader'
-import { Table, TableContainer, TableRow, TableCell, MenuItem, FormControl, Select, TextField, Typography, Box, Button, Divider} from '@mui/material';
+import { Table, TableContainer, TableRow, TableCell, MenuItem, FormControl, Select, TextField, Typography, Button, Divider} from '@mui/material';
 
 import api from 'lib/api';
 
@@ -24,6 +24,7 @@ function ModifyBoard(): JSX.Element {
 
   useEffect(() => {
     fetchBoard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [boardId]);
 
   const handleInputChange = (e) => {

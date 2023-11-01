@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { LogoutApi } from 'components/member/Logout';
 import Cookies from 'js-cookie';
 
 const api = axios.create({

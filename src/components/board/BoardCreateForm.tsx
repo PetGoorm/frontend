@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Table, TableContainer, TableRow, TableCell, MenuItem, FormControl, Select, TextField, Typography, Box, Button, Divider, Paper} from '@mui/material';
+import { useState } from 'react';
+import { Table, TableContainer, TableRow, TableCell, MenuItem, FormControl, Select, TextField, Typography, Box, Button, Divider} from '@mui/material';
 import BoardImageUploader from 'components/board/boardImageUploader'
 import api from 'lib/api';
 import boardRequestDto from 'dto/boardRequestDto';
