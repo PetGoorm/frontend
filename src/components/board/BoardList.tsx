@@ -46,26 +46,26 @@ function BoardList(): JSX.Element {
       console.log(page)
       setCurrentPage(parseInt(page)-1);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    navigate(`/board/list/${category}?page=${pageNumber+1}`) //프론트에서는 페이징 1부터 시작
+    navigate(`/board/list/${selectedCategory}?page=${pageNumber + 1}`); //프론트에서는 페이징 1부터 시작
   };
 
   const handleCategoryChange = (event) => {
     const newCategory = event.target.value;
     setSelectedCategory(newCategory);
-    // When the category is changed, navigate to the corresponding category route
+    setKeyword(''); // 검색어 초기화
+    setSearch(''); // 검색 초기화
     navigate(`/board/list/${newCategory}?page=1`);
   };
 
   useEffect(() => {
-    // When the component mounts or the category changes, fetch the board list
     fetchBoardList(currentPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, selectedCategory, status, keyword, search]);
+
+
 
   useEffect(() => {
     setSelectedCategory(category || '전체');
@@ -152,7 +152,7 @@ function BoardList(): JSX.Element {
       ) : (
         <CircularProgress />
        
-      )} <SearchBar setSearch={setSearch} setKeyword={setKeyword} />
+      )} <SearchBar setSearch={setSearch} setKeyword={setKeyword} setSelectedCategory={selectedCategory} />
     </>
   );
 }
