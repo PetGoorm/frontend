@@ -12,17 +12,7 @@ import ScrollToTop from './components/scroll-to-top';
 import { RecoilRoot } from 'recoil';
 
 function App() {
-  
-  // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (Cookies.get('key')) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
 
   return (
 
