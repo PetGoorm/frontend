@@ -19,6 +19,7 @@ import EditNick from 'components/member/mypage/EditNick';
 import EditPw from 'components/member/mypage/EditPw';
 import PetEditPage from 'pages/PetEditPage';
 import DiaryPage from './pages/DiaryPage';
+import { PrivateRoute } from 'components/member/PrIvateRoute';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +31,6 @@ export default function Router() {
       children: [
         { element: <Navigate to="/main" />, index: true },
         { path: 'main', element: <MainPage /> },
-        { path: 'petdiary', element: <DiaryPage /> },
       ],
     },
     {
@@ -39,7 +39,7 @@ export default function Router() {
     },
     {
       path: 'logout',
-      element: <Logout />,
+      element: <PrivateRoute element={<Logout />} />,
     },
     {
       path: 'signup',
@@ -55,15 +55,16 @@ export default function Router() {
     },
     {
       path: '/pet',
-      element: <DashboardLayout />,
+      element: <PrivateRoute element={<DashboardLayout />} />,
       children: [
         { path: 'petform',element: <PetFormPage />},
         { path: 'edit',element: <PetEditPage />},
+        { path: 'petdiary', element: <DiaryPage /> },
       ],
     },
     {
       path: '/board',
-      element: <DashboardLayout />,
+      element: <PrivateRoute element={<DashboardLayout />}/>,
       children: [
         { element: <Navigate to="/board/list/all?page=1" />, index: true },
         { path: ':boardId', element: <BoardDetail  /> },
@@ -74,7 +75,7 @@ export default function Router() {
     },
     {
       path: '/member',
-      element: <DashboardLayout/>,
+      element: <PrivateRoute element={<DashboardLayout/>}/>,
       children: [
         {element: <EditNick/>, path:'editNick' },
         {element: <EditPw/>, path:'editPw' },
