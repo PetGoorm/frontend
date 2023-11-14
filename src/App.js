@@ -1,6 +1,4 @@
 import './App.css';
-import Cookies from 'js-cookie';
-import { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 // routes
 import Router from './routes';
