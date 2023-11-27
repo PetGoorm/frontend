@@ -19,6 +19,7 @@ import EditNick from 'components/member/mypage/EditNick';
 import EditPw from 'components/member/mypage/EditPw';
 import PetEditPage from 'pages/PetEditPage';
 import DiaryPage from './pages/DiaryPage';
+import MyInfo from 'components/member/mypage/MyInfo';
 
 // ----------------------------------------------------------------------
 
@@ -78,6 +79,7 @@ export default function Router() {
       children: [
         {element: <EditNick/>, path:'editNick' },
         {element: <EditPw/>, path:'editPw' },
+        {element: <MyInfo/>, path:'myInfo' },
       ]
     },
     {
