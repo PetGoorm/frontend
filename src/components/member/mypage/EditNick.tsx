@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "lib/api";
 import useNicknameChecker from "lib/useNicknameChecker";
-import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
+import { Container, Typography, Grid, TextField, Box, Button, Card, Divider } from '@mui/material';
 
 interface FormData {
   nickname: string;
 }
 
 const EditNick = () => {
+  const [nowNick, setNowNick] = useState(String || null)
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({ mode: 'all' });
   const navigate = useNavigate();
 
@@ -43,8 +44,16 @@ const EditNick = () => {
     }
   };
 
+  useEffect(() => {
+    getNick();
+  }, [setNowNick])
 
-
+  const getNick = async () => {
+    const result = await api.get("member/myInfo")
+    setNowNick(result.data.data.nickname)
+    console.log("nowNick:" + result.data.data.nickname)
+  }
+  
   return (
 
     <>
@@ -59,32 +68,28 @@ const EditNick = () => {
             padding: 4, backgroundColor: 'white'
           }}
         >
-          <Typography variant="h4" sx={{ mb: 5 }}>
+          <Typography variant="h4" sx={{ mb: 5  }}>
             닉네임 변경
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit(handleFormSubmit)} sx={{ mt: 3 }}>
 
             <Grid container spacing={2}>
 
-              <Grid item xs={12}>
+              <Grid item xs={3}>
                 <Typography sx={{ color: '#969696' }}>현재 닉네임</Typography>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  type="text"
-                  size="small"
-                  hiddenLabel
-                  fullWidth
-                  inputProps={
-                    { readOnly: true, }
-                  }
-                  value="닉네임 들어올 곳"
-                />
+              <Grid item xs={9}>
+                <Typography>{nowNick}</Typography>
+
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{ color: '#969696' }}>새 닉네임</Typography>
+                <Divider style={{ width: '100%' }} sx={{ my: 1 }} />
               </Grid>
-              <Grid item xs={8}>
+
+              <Grid item xs={3}>
+                <Typography sx={{ color: '#969696' }}>바꿀 닉네임</Typography>
+              </Grid>
+              <Grid item xs={5}>
                 <TextField
                   type="text"
                   size="small"
@@ -108,18 +113,22 @@ const EditNick = () => {
               </Grid>
               <Grid item xs={4} sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Button onClick={checkNickname} disabled={!!errors.nickname} variant="contained"
-                  sx={{ backgroundColor: '#FFAE8B', boxShadow: 'none', paddingY: 1 }} >중복확인</Button>
+                  sx={{ backgroundColor: '#969696', boxShadow: 'none' }} >중복확인</Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider style={{ width: '100%' }} sx={{ my: 1 }} />
               </Grid>
 
             </Grid>
+            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', marginTop:3 }}>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               sx={{ backgroundColor: '#FFAE8B', boxShadow: 'none', paddingY: 1, marginY: 3 }}
             >
               변경하기
             </Button>
+            </Grid>
           </Box>
         </Card>
       </Container>
