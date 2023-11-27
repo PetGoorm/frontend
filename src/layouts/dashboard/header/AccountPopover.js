@@ -10,15 +10,18 @@ import { Link } from 'react-router-dom';
 import { atom, useRecoilState } from 'recoil';
 
 export const petState = atom({
-  key:'petImg',
-  default:''
+  key: 'petImg',
+  default: ''
 })
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover({ isLoggedIn }) {
 
-   const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(null);
+  const [email, setEmail] = useState('');
+  const [nick, setNick] = useState('')
+
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -32,30 +35,39 @@ export default function AccountPopover({ isLoggedIn }) {
 
   useEffect(() => {
     handlePetUrl()
+    getMemberInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [petImg])
+  }, [petImg, nick])
 
   const settings = isLoggedIn
-  ? [
-    { label: "마이 페이지", href: "/member/mypage" },
-    { label: "펫 등록", href: "/pet/petform" },
-    { label: "펫 수정", href: "/pet/edit" },
-    { label: "로그아웃", href: "/logout" }
-  ]
-  : [{ label: "로그인", href: "/login" },
-  { label: "회원가입", href: "/signup" }
-  ];
-  
+    ? [
+      { label: "마이 페이지", href: "/member/myInfo" },
+      { label: "펫 등록", href: "/pet/petform" },
+      { label: "펫 수정", href: "/pet/edit" },
+      { label: "로그아웃", href: "/logout" }
+    ]
+    : [{ label: "로그인", href: "/login" },
+    { label: "회원가입", href: "/signup" }
+    ];
+
 
   //헤더 아바타에 들어갈 펫 이미지 
   const handlePetUrl = async () => {
     if (Cookies.get("key")) {
       const result = await api.get("pet/petinfo");
-      setPetImg(result.data.data.petUrl);
+      if (result) {
+        setPetImg(result.data.data.petUrl);
+      }
+    }
   }
-}
-  console.log("isLoggedIn"+isLoggedIn)
+  console.log("isLoggedIn" + isLoggedIn)
 
+  const getMemberInfo = async () => {
+    const result = await api.get("member/myInfo")
+    setNick(result.data.data.nickname)
+    setEmail(result.data.data.email)
+    console.log("nowNick:" + result.data.data.nickname)
+  }
 
 
   return (
@@ -77,7 +89,7 @@ export default function AccountPopover({ isLoggedIn }) {
           }),
         }}
       >
-        <Avatar alt="Remy Sharp" src={petImg} sx={{backgroundColor:'#FFAE8B' }}/>
+        <Avatar alt="Remy Sharp" src={petImg} sx={{ backgroundColor: '#FFAE8B' }} />
       </IconButton>
 
       <Popover
@@ -101,10 +113,10 @@ export default function AccountPopover({ isLoggedIn }) {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {nick} 님
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {email}
           </Typography>
         </Box>
 
