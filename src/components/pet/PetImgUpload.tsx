@@ -41,7 +41,7 @@ export default function PetImgUpload({ setImageFile, setFilename, setFileType, n
                     aria-label="upload picture"
                     component="span"
                 >
-                    <Avatar sx={{ width: 200, height: 200 }} src={imagePreview} />
+                    <Avatar sx={{ width: 200, height: 200 }} src={imagePreview ? imagePreview : nowProfile} />
                 </IconButton>
             </label>
 
