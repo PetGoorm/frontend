@@ -12,8 +12,10 @@ import TaskItem from "./TodoItem";
 import TodoInput from './TodoInput';
 import api from "lib/api";
 import { useRecoilValue } from 'recoil';
-import  selectedDateState  from "../../stores/seletedDate";
-
+import selectedDateState from "../../stores/seletedDate";
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { confirmLogin } from 'components/member/PrIvateRoute';
 // ----------------------------------------------------------------------
 
 AppTasks.propTypes = {
@@ -62,13 +64,15 @@ export default function AppTasks({ title, list, ...other }) {
       });
   };
 
+  const navigate = useNavigate();
+
   return (
     <Card style={{ height: "460px", overflowY: 'auto' }}>
 
-      <div style={{ display: 'flex'}}>
+      <div style={{ display: 'flex' }}>
         <CardHeader title={title} />
-        <button style={{ marginTop: "25px", fontSize: "20px", background: "white", borderRadius: "30px"}}
-        onClick={() => setIsAddingTodo(true)}>+</button>
+        <button style={{ marginTop: "25px", fontSize: "20px", background: "white", borderRadius: "30px" }}
+          onClick={() => Cookies.get('key') ? setIsAddingTodo(true) : confirmLogin(navigate)}>+</button>
       </div>
       {isAddingTodo && (
         <TodoInput onAddTodo={handleAddTodo} />
