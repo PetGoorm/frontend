@@ -10,7 +10,7 @@ function ModifyBoard(): JSX.Element {
   const navigate = useNavigate();
   const { boardId } = useParams();
 
-  const [boardData, setBoardData] = useState<boardRequestDto | null>();
+  const [boardData, setBoardData] = useState<boardRequestDto | null>(null);
 
   const fetchBoard = async () => {
     try {
@@ -78,7 +78,7 @@ function ModifyBoard(): JSX.Element {
       <TableCell>카테고리</TableCell>
       <TableCell align="left">
         <FormControl sx={{ minWidth: 120 }} size="small">
-          <Select labelId="demo-select-small-label" id="demo-select-small" name="category" value={boardData.category} onChange={handleInputChange} displayEmpty inputProps={{ 'aria-label': 'Without label' }}>
+          <Select labelId="demo-select-small-label" id="demo-select-small" name="category" value={boardData ? boardData.category : ''} onChange={handleInputChange} displayEmpty inputProps={{ 'aria-label': 'Without label' }}>
             <MenuItem value="">카테고리 선택</MenuItem>
             <MenuItem value="walk-with">산책모임</MenuItem>
             <MenuItem value="show-off">동물자랑</MenuItem>
@@ -90,19 +90,19 @@ function ModifyBoard(): JSX.Element {
     <TableRow>
       <TableCell>제목</TableCell>
       <TableCell align="center">
-        <TextField fullWidth size="small" id="outlined-multiline-static" name="title" value={boardData.title} onChange={handleInputChange} />
+        <TextField fullWidth size="small" id="outlined-multiline-static" name="title" value={boardData ? boardData.title : ''} onChange={handleInputChange} />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>내용</TableCell>
       <TableCell align="center">
-        <TextField fullWidth id="outlined-multiline-static" multiline rows={10} name="content" value={boardData.content} onChange={handleInputChange} />
+        <TextField fullWidth id="outlined-multiline-static" multiline rows={10} name="content" value={boardData ? boardData.content : ''} onChange={handleInputChange} />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>사진 첨부</TableCell>
       <TableCell align="left">
-      {boardData.image !== '' && <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
+      {boardData && boardData.image !== '' && <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
                     <img src={boardData.image} alt={`${boardData.title}`} style={{ maxWidth: '100%' }} /></div>}
         <BoardImageUploader onImageUpload={handleImageUpload}/>
       </TableCell>
