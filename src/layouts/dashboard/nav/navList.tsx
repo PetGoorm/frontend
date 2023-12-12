@@ -45,7 +45,7 @@ export default function NavList() {
 
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                    <CustomListItem href="/member/editPw" primaryText="내 정보" icon={<PermIdentityOutlinedIcon />} plSize={4} />
+                    <CustomListItem href="/member/myInfo" primaryText="내 정보" icon={<PermIdentityOutlinedIcon />} plSize={4} />
                     <CustomListItem href="/member/editPw" primaryText="비밀번호 변경" icon={<VpnKeyOutlinedIcon />} plSize={4} />
                     <CustomListItem href="/member/editNick" primaryText="닉네임 변경" icon={<DnsOutlinedIcon />} plSize={4} />
                 </List>
@@ -79,7 +79,7 @@ const CustomListItem = ({ href, primaryText, icon, plSize }:
             <ListItemIcon>
                 {icon}
             </ListItemIcon>
-            <ListItemText primary={primaryText} />
+            <ListItemText primary={primaryText}  />
         </ListItemButton>
     );
 };

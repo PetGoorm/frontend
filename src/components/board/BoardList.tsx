@@ -63,6 +63,7 @@ function BoardList(): JSX.Element {
 
   useEffect(() => {
     fetchBoardList(currentPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, selectedCategory, status, keyword, search]);
 
 

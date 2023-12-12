@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import api from "lib/api";
-import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
+import { Container, Typography, Grid, TextField, Box, Button, Card, Divider } from '@mui/material';
 // components
 interface FormData {
 
@@ -52,10 +52,11 @@ const EditPw = () => {
           <Box component="form" noValidate onSubmit={handleSubmit(handleFormSubmit)} sx={{ mt: 3 }}>
 
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+
+              <Grid item xs={3}>
                 <Typography sx={{ color: '#969696' }}>현재 비밀번호</Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={9}>
                 <TextField
                   type="password"
                   size="small"
@@ -76,9 +77,12 @@ const EditPw = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography sx={{ color: '#969696' }}>새 비밀번호</Typography>
+                <Divider style={{ width: '100%' }} sx={{ my: 1 }} />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={3}>
+                <Typography sx={{ color: '#969696' }}>바꿀 비밀번호</Typography>
+              </Grid>
+              <Grid item xs={9}>
                 <TextField
                   type="password"
                   size="small"
@@ -98,11 +102,13 @@ const EditPw = () => {
                   helperText={errors.updatePW?.message}
                 />
               </Grid>
-
               <Grid item xs={12}>
-                <Typography sx={{ color: '#969696' }}>새 비밀번호 확인</Typography>
+                <Divider style={{ width: '100%' }} sx={{ my: 1 }} />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={3}>
+                <Typography sx={{ color: '#969696' }}>비밀번호 확인</Typography>
+              </Grid>
+              <Grid item xs={9}>
                 <TextField
                   type="password"
                   size="small"
@@ -115,6 +121,9 @@ const EditPw = () => {
                   error={!!errors.passwordCheck}
                   helperText={errors.passwordCheck?.message}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Divider style={{ width: '100%' }} sx={{ my: 1 }} />
               </Grid>
             </Grid>
             <Button

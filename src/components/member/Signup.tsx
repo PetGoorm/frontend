@@ -151,7 +151,7 @@ const Signup = () => {
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Button onClick={checkEmail} disabled={!!errors.email} variant="contained"
-                    sx={{ backgroundColor: '#FFAE8B', boxShadow: 'none', paddingY: 1 }} >중복확인</Button>
+                    sx={{ backgroundColor: '#969696', boxShadow: 'none', paddingY: 1 }} >중복확인</Button>
                 </Grid>
                 <Grid item xs={12}>
                   <Typography sx={{ color: '#969696' }}>비밀번호</Typography>
@@ -225,7 +225,7 @@ const Signup = () => {
                 </Grid>
                 <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Button onClick={checkNickname} disabled={!!errors.nickname} variant="contained"
-                    sx={{ backgroundColor: '#FFAE8B', boxShadow: 'none', paddingY: 1 }} >중복확인</Button>
+                    sx={{ backgroundColor: '#969696', boxShadow: 'none', paddingY: 1 }} >중복확인</Button>
                 </Grid>
 
                 <Grid item xs={4}>
