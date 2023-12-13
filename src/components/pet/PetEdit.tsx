@@ -5,7 +5,6 @@ import PetImgUpload from "./PetImgUpload";
 import { uploadS3 } from "lib/s3";
 import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { get } from "http";
 
 interface PetFormData {
     petname: string;
