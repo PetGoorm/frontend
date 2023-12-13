@@ -22,22 +22,19 @@ const Reply = () => {
 
     const [refresh, setRefresh] = useState(1)
 
-    //댓글 목록
-    const GetReplyList = () => {
-        api.get(`api/reply/list/${boardId}`)
-            .then((res) => {
-                setReplyList(res.data.data)
-                console.log(res.data.data)
-            }).catch((e) => {
-                console.log(e);
-            })
-
-    }
-
     useEffect(() => {
+        const GetReplyList = () => {
+            api.get(`api/reply/list/${boardId}`)
+                .then((res) => {
+                    setReplyList(res.data.data);
+                    console.log(res.data.data);
+                }).catch((e) => {
+                    console.log(e);
+                });
+        };
+    
         GetReplyList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh])
+    }, [boardId, refresh]);
 
 
 

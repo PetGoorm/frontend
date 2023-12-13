@@ -5,6 +5,7 @@ import PetImgUpload from "./PetImgUpload";
 import { uploadS3 } from "lib/s3";
 import { Container, Typography, Grid, TextField, Box, Button, Card } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { get } from "http";
 
 interface PetFormData {
     petname: string;
@@ -73,26 +74,27 @@ export const PetEdit = () => {
     }
 
     useEffect(() => {
-        getPetData()
-    }, [])
+        // 펫 정보를 받아오는 함수를 useEffect 내부에 정의
+        const getPetData = () => {
+            api.get("pet/petinfo")
+                .then((res) => {
+                    const petData: PetFormData = {
+                        ...res.data.data
+                    }
+                    setPetData(petData);
+                    setFormattedDate(new Date(petData.firstmet).toISOString().split('T')[0]);
+                }).catch((error) => {
+                    alert('펫을 먼저 등록해주세요!')
+                    navigate("/pet/petform")
+                    console.log(error.message)
+                });
+        };
 
-    //펫 정보 받아오는 함수
-    const getPetData = () => {
-        api.get("pet/petinfo")
-            .then((res) => {
-                const petData: PetFormData = {
-                    ...res.data.data
-                }
-                setPetData(petData);
-                setFormattedDate(new Date(petData.firstmet).toISOString().split('T')[0]);
+        // 함수 호출
+        getPetData();
+    }, [navigate]);
 
-            }).catch((error) => {
-                alert('펫을 먼저 등록해주세요!')
-                navigate("/pet/petform")
 
-                console.log(error.message)
-            })
-    }
 
     return (
         <>

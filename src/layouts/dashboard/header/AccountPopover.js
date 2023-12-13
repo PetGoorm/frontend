@@ -3,7 +3,7 @@ import { useState, React, useEffect } from 'react';
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 // mocks_
-import account from '../../../_mock/account';
+// import account from '../../../_mock/account';
 import Cookies from 'js-cookie';
 import api from 'lib/api';
 import { Link } from 'react-router-dom';

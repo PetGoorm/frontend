@@ -24,22 +24,6 @@ function BoardList(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const page = new URLSearchParams(location.search).get('page');
-  const fetchBoardList = async (page) => {
-    try {
-      console.log(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`)
-
-      const response = await api.get(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`);
-
-      const data = response.data;
-
-      setStatus(data.statusCode)
-      setBoardList(data.data.content);
-      setTotalPages(data.data.totalPages);
-
-    } catch (error) {
-      console.error('게시물 목록을 가져오는 중 오류 발생:', error);
-    }
-  };
 
   useEffect(() => {
     if (page) {
@@ -62,8 +46,23 @@ function BoardList(): JSX.Element {
   };
 
   useEffect(() => {
+    const fetchBoardList = async (page) => {
+      try {
+        console.log(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`)
+  
+        const response = await api.get(`/api/board/page?page=${page}&category=${selectedCategory}&keyword=${keyword}&search=${search}`);
+  
+        const data = response.data;
+  
+        setStatus(data.statusCode)
+        setBoardList(data.data.content);
+        setTotalPages(data.data.totalPages);
+  
+      } catch (error) {
+        console.error('게시물 목록을 가져오는 중 오류 발생:', error);
+      }
+    };
     fetchBoardList(currentPage);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, selectedCategory, status, keyword, search]);
 
 
