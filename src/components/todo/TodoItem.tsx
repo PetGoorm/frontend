@@ -83,6 +83,15 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
     setEditedTitle(task.title);
   };
 
+  const confirmDelete = () => {
+    const confirmCancel = window.confirm('정말 취소하시겠습니까?');
+    
+    if (confirmCancel) {
+      handleDelete();
+    }
+    handleCloseMenu();
+  };
+
   const handleDelete = () => {
     handleCloseMenu();
     console.log('DELETE', task.id);
@@ -182,7 +191,7 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
             <EditIcon sx={{ mr: 2 }} />
             Edit
           </MenuItem>
-          <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
+          <MenuItem onClick={confirmDelete} sx={{ color: 'error.main' }}>
             <DeleteIcon sx={{ mr: 2 }} />
             Delete
           </MenuItem>
