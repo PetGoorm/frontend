@@ -2,6 +2,7 @@ import { useState, React, useEffect } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 // mocks_
 // import account from '../../../_mock/account';
 import Cookies from 'js-cookie';
@@ -132,6 +133,11 @@ export default function AccountPopover({ isLoggedIn }) {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
+        <Box sx={{ my: 1.5, px: 2.5 }}>
+        <IconButton href = "https://github.com/PetGoorm">
+          <GitHubIcon />
+        </IconButton>
+        </Box>
       </Popover>
     </>
   );

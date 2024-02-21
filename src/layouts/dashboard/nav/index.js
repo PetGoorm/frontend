@@ -48,12 +48,6 @@ export default function Nav({ openNav, onCloseNav }) {
       {/* <NavSection data={navConfig} /> */}
       <NavList/>
       <Box sx={{ flexGrow: 1 }} />
-
-      <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-        <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-          백영서, 오민서, 이주형 깃허브 넣자
-        </Stack>
-      </Box>
     </Scrollbar>
   );
 
