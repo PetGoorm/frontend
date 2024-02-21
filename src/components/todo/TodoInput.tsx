@@ -36,6 +36,12 @@ function TodoInput({ onAddTodo }) {
       });
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleAddTodo();
+    }
+  };
+
   return (
     <div style={{ 
       display: 'flex',
@@ -50,16 +56,36 @@ function TodoInput({ onAddTodo }) {
         placeholder="새로운 할 일을 입력하세요"
         value={newTodoText}
         onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
         style={{ 
-          background: 'transparent',
+          background: 'white',
           border: 'none',
-          borderBottom: '1px solid black',
+          borderRadius: '5px',
+          boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
           outline: 'none',
           flex: 1,
+          padding: '10px',
+          marginRight: '10px',
         }}
       />
-      <button onClick={handleAddTodo}>추가</button>
+      <button 
+        onClick={handleAddTodo}
+        style={{
+          background: '#FFAE8B',
+          color: 'white',
+          borderRadius: '50%',
+          boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.2)',
+          width: '40px',
+          height: '40px',
+          border: 'none',
+          cursor: 'pointer',
+          marginLeft: '10px',
+        }}
+      >
+        입력
+      </button>
     </div>
+
   );
 }
 
