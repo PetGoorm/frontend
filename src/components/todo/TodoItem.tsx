@@ -109,28 +109,54 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
       >
 {isEditing ? (
         <>
-          <Input
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            style={{ 
-              background: 'transparent',
-              border: 'none',
-              borderBottom: '1px solid black',
-              outline: 'none',
-              flex: 1,
-            }}
-          />
-          <Button onClick={handleSave}>Save</Button>
-          <Button onClick={handleCancel}>Cancel</Button>
-        </>
+        <Input
+          value={editedTitle}
+          onChange={(e) => setEditedTitle(e.target.value)}
+          style={{ 
+            background: 'transparent',
+            border: 'none',
+            borderBottom: '1px solid black',
+            outline: 'none',
+            flex: 1,
+            marginLeft: '40px',
+          }}
+        />
+        <Button 
+          onClick={handleSave} 
+          style={{
+            background: '#FFAE8B', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px', 
+            padding: '8px 16px',
+            cursor: 'pointer', 
+            marginLeft: '10px',
+          }}
+        >
+          저장
+        </Button>
+        <Button 
+          onClick={handleCancel} 
+          style={{
+            background: '#FFAE8B', 
+            color: 'white', 
+            border: 'none',
+            borderRadius: '5px', 
+            padding: '8px 16px',
+            cursor: 'pointer', 
+          }}
+        >
+          취소
+        </Button>
+      </>
+      
       ) : (
+        <>
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={handleCheckboxChange} />}
           label={task.title}
           sx={{ flexGrow: 1, m: 0 }}
         />
-)}
-  
         <IconButton size="large" color="inherit" sx={{ opacity: 0.48 }} onClick={handleOpenMenu}>
           <MoreVertIcon />
         </IconButton>
@@ -161,6 +187,8 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
             Delete
           </MenuItem>
         </Popover>
+        </>
+        )}
       </Stack>
     );
 };
