@@ -83,6 +83,15 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
     setEditedTitle(task.title);
   };
 
+  const confirmDelete = () => {
+    const confirmCancel = window.confirm('정말 취소하시겠습니까?');
+    
+    if (confirmCancel) {
+      handleDelete();
+    }
+    handleCloseMenu();
+  };
+
   const handleDelete = () => {
     handleCloseMenu();
     console.log('DELETE', task.id);
@@ -109,28 +118,54 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
       >
 {isEditing ? (
         <>
-          <Input
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            style={{ 
-              background: 'transparent',
-              border: 'none',
-              borderBottom: '1px solid black',
-              outline: 'none',
-              flex: 1,
-            }}
-          />
-          <Button onClick={handleSave}>Save</Button>
-          <Button onClick={handleCancel}>Cancel</Button>
-        </>
+        <Input
+          value={editedTitle}
+          onChange={(e) => setEditedTitle(e.target.value)}
+          style={{ 
+            background: 'transparent',
+            border: 'none',
+            borderBottom: '1px solid black',
+            outline: 'none',
+            flex: 1,
+            marginLeft: '40px',
+          }}
+        />
+        <Button 
+          onClick={handleSave} 
+          style={{
+            background: '#FFAE8B', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px', 
+            padding: '8px 16px',
+            cursor: 'pointer', 
+            marginLeft: '10px',
+          }}
+        >
+          저장
+        </Button>
+        <Button 
+          onClick={handleCancel} 
+          style={{
+            background: '#FFAE8B', 
+            color: 'white', 
+            border: 'none',
+            borderRadius: '5px', 
+            padding: '8px 16px',
+            cursor: 'pointer', 
+          }}
+        >
+          취소
+        </Button>
+      </>
+      
       ) : (
+        <>
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={handleCheckboxChange} />}
           label={task.title}
           sx={{ flexGrow: 1, m: 0 }}
         />
-)}
-  
         <IconButton size="large" color="inherit" sx={{ opacity: 0.48 }} onClick={handleOpenMenu}>
           <MoreVertIcon />
         </IconButton>
@@ -156,11 +191,13 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
             <EditIcon sx={{ mr: 2 }} />
             Edit
           </MenuItem>
-          <MenuItem onClick={handleDelete} sx={{ color: 'error.main' }}>
+          <MenuItem onClick={confirmDelete} sx={{ color: 'error.main' }}>
             <DeleteIcon sx={{ mr: 2 }} />
             Delete
           </MenuItem>
         </Popover>
+        </>
+        )}
       </Stack>
     );
 };
