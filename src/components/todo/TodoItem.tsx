@@ -33,7 +33,6 @@ TaskItem.propTypes = {
 export default function TaskItem({ task, checked, onChange, onDelete }) {
   const [open, setOpen] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openRepeatSettings, setOpenRepeatSettings] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
 
@@ -50,13 +49,8 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
     setIsEditing(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleRepeatSettings = () => {
     setOpenRepeatSettings(true);
-    handleClose();
   };
 
   const handleRepeatSettingsClose = () => {
