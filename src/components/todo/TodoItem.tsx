@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import RepeatSettings from './TodoRepeat';
 
 // @mui
 import {
@@ -17,6 +18,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreVertIcon from '@mui/icons-material/MoreVert'; 
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import api from "lib/api";
 
 TaskItem.propTypes = {
@@ -31,6 +33,8 @@ TaskItem.propTypes = {
 export default function TaskItem({ task, checked, onChange, onDelete }) {
   const [open, setOpen] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openRepeatSettings, setOpenRepeatSettings] = useState(false);
   const [editedTitle, setEditedTitle] = useState(task.title);
 
   const handleOpenMenu = (event) => {
@@ -44,6 +48,31 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
   const handleEdit = () => {
     handleCloseMenu();
     setIsEditing(true);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleRepeatSettings = () => {
+    setOpenRepeatSettings(true);
+    handleClose();
+  };
+
+  const handleRepeatSettingsClose = () => {
+    setOpenRepeatSettings(false);
+  };
+
+  // 반복 설정
+  const handleRepeatConfirm = (settings) => {
+    api.post(`todo/repeat/${task.id}`, settings)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      handleRepeatSettingsClose();
   };
 
   const handleSave = () => {
@@ -189,12 +218,21 @@ export default function TaskItem({ task, checked, onChange, onDelete }) {
         >
           <MenuItem onClick={handleEdit}>
             <EditIcon sx={{ mr: 2 }} />
-            Edit
+            수정
+          </MenuItem>
+          <MenuItem onClick={handleRepeatSettings}>
+            <AccessTimeIcon sx={{ mr: 2 }} />
+            반복 설정
           </MenuItem>
           <MenuItem onClick={confirmDelete} sx={{ color: 'error.main' }}>
             <DeleteIcon sx={{ mr: 2 }} />
-            Delete
+            삭제
           </MenuItem>
+          <RepeatSettings
+            open={openRepeatSettings}
+            onClose={handleRepeatSettingsClose}
+            onConfirm={handleRepeatConfirm}
+          />
         </Popover>
         </>
         )}
