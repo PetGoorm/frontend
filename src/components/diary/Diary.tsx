@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import DiaryEditPopup from "./DiaryEdit";
+import DiaryimgS3Upload from "./DiaryimgS3Upload";
 
 import {
   Container,
@@ -22,13 +23,13 @@ interface Diarydata {
     snack: string;
     walk: string;
     water: string;
+    image: string;
 };
   
 export const Diary = () => {
   const [selectedDay, setSelectedDay] = useState(dayjs().format('YYYY-MM-DD'));
   const [isEditMode, setIsEditMode] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
   const [data, setData] = useState<Diarydata>({
       day: '',
       diary: '',
@@ -38,6 +39,7 @@ export const Diary = () => {
       snack: '',
       walk: '',
       water: '',
+      image: '',
     });
 
     const [userInput, setUserInput] = useState<Diarydata>({
@@ -49,6 +51,7 @@ export const Diary = () => {
       snack: '',
       walk: '',
       water: '',
+      image: '',
     });
 
   useEffect(() => {
@@ -84,6 +87,7 @@ export const Diary = () => {
           snack: '',
           walk: '',
           water: '',
+          image: '',
         });
       })
       .catch((error) => {
@@ -102,6 +106,13 @@ export const Diary = () => {
     const previousDay = dayjs(selectedDay).subtract(1, 'day').format('YYYY-MM-DD');
     setSelectedDay(previousDay);
     setUserInput((prevUserInput) => ({ ...prevUserInput, day: previousDay }));
+  };
+
+  const handleImageUpload = (imageUrl: string) => {
+    setUserInput((prevData) => ({
+      ...prevData,
+      image: imageUrl,
+    }));
   };
 
   const openEditPopup = () => {
@@ -128,6 +139,7 @@ export const Diary = () => {
             snack: '',
             walk: '',
             water: '',
+            image: '',
           });
         })
         .catch((error) => {
@@ -243,6 +255,12 @@ export const Diary = () => {
                                     onChange={(e) => setUserInput({ ...userInput, diary: e.target.value })}
                                     />
                     </Grid>
+                    <Grid item xs={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography>사진 📷:</Typography>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <DiaryimgS3Upload onImageUpload={handleImageUpload}/>
+                    </Grid>
                   </Grid>
                   <Button
                     variant="contained"
@@ -310,6 +328,15 @@ export const Diary = () => {
                 </Grid>
                 <Grid item xs={10}>
                   {data.diary}
+                </Grid>
+                <Grid item xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography>사진 📷</Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  {data.image && (
+                    <img src={data.image} alt={`${data.image}`} style={{ maxWidth: '100%' }} />
+                  )}
                 </Grid>
               </Grid>
               <Grid container spacing={2}>

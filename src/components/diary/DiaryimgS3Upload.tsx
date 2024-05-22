@@ -2,8 +2,6 @@ import { uploadS3 } from "lib/s3";
 import { useState } from "react";
 import { styled } from "styled-components";
 
-
-
 interface ImageProps {
   onImageUpload: (imageUrl: string) => void;
 }
@@ -31,7 +29,7 @@ export default function ExampleComponent({onImageUpload}:ImageProps): JSX.Elemen
       formData.append("name", fileName);
       formData.append("file", file);
       formData.append("type", file.type);
-      formData.append('category', 'board');
+      formData.append('category', 'diaryimg');
   
       try {
         const imageURL: string = await uploadS3(formData);

@@ -12,10 +12,25 @@ export const uploadS3 = async (formData: any) => {
   });
 
   const s3 = new AWS.S3();
+  const category = formData.get('category');
+  let keyPrefix;
+
+  switch (category) {
+    case 'diaryimg':
+      keyPrefix = 'diaryimg/';
+      break;
+    case 'board':
+      keyPrefix = 'board/';
+      break;
+    case 'pet':
+    default:
+      keyPrefix = 'pet-profile/';
+  }
+
   const params = {
     ACL: "public-read",
     Bucket: process.env.REACT_APP_MY_AWS_S3_BUCKET,
-    Key: `pet-profile/${formData.get("name")}`,
+    Key: `${keyPrefix}${formData.get('name')}`,
     Body: formData.get("file"),
     ContentType: formData.get("type"),
   };
