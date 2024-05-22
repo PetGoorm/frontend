@@ -31,6 +31,7 @@ export default function ExampleComponent({onImageUpload}:ImageProps): JSX.Elemen
       formData.append("name", fileName);
       formData.append("file", file);
       formData.append("type", file.type);
+      formData.append('category', 'board');
   
       try {
         const imageURL: string = await uploadS3(formData);
